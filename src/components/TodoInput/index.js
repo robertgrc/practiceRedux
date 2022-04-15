@@ -8,9 +8,13 @@ const TodoInput = ({ addItem }) => {
   const onSubmit = useCallback(
     (e) => {
       e.preventDefault();
+      // Evento que permite agregar el item (value)
+      // addItem(value)
+      dispatch({ type: "ADD_ITEM", payload: { item: value } });
+
       setValue("");
     },
-    [setValue]
+    [setValue, addItem, value]
   );
 
   return (

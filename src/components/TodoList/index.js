@@ -1,17 +1,25 @@
 import React, { useCallback } from "react";
 import TodoItem from "../TodoItem";
+import { useDispatch, useSelector } from "react-redux";
 
-const TodoList = () => {
-  const list = [{ item: "uno" }, { item: "dos" }, { item: "tres" }];
+const TodoList = ({ list, removeItem }) => {
+  const dispatch = useDispatch();
+  const items = useSelector((state) => state.items);
 
-  const onClickRemove = useCallback((item) => {
-    //Accion de eliminar un item
-  }, []);
+  const onClickRemove = useCallback(
+    (item) => {
+      // Acción de eliminar un item
+      console.log("Borrando item", item);
+      // removeItem(item)
+      dispatch({ type: "REMOVE_ITEM", payload: item });
+    },
+    [removeItem]
+  );
 
   return (
     <div>
-      {list &&
-        list.map((i) => (
+      {items &&
+        items.map((i) => (
           <TodoItem
             key={i.item}
             {...i}
@@ -21,7 +29,6 @@ const TodoList = () => {
     </div>
   );
 };
-
 /*
 const mapStateToProps = state => {
     return {

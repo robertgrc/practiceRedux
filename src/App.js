@@ -5,12 +5,27 @@ import "./App.css";
 import { createStore } from "redux";
 import { Provider } from "react-redux";
 
-const initialValue = [];
+const initialValue = { items: [] };
+
 const reducer = (state = initialValue, action) => {
-  return state;
+  debugger;
+  switch (action.type) {
+    case "ADD_ITEM":
+      return { ...state, items: [...state.items, action.payload] };
+    case "REMOVE_ITEM":
+      return {
+        ...state,
+        items: state.items.filter((i) => i.item !== action.payload),
+      };
+    default:
+      return state;
+  }
 };
 
-const store = createStore(reducer);
+const store = createStore(
+  reducer,
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+);
 
 function App() {
   return (
